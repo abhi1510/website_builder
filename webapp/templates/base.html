@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/3/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+    <style>
+        html body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 180px;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #122233;
+            overflow-x: hidden;
+        }
+
+        .sidenav a {
+            font-size: medium;
+            padding: 10px 0 10px 15px;
+            text-decoration: none;
+            color: #f1f1f1;
+            display: block;
+            transition: 0.5s;
+        }
+
+        .sidenav a:first-child {
+            font-size: medium;
+            padding: 0 10px;
+            text-decoration: none;
+            color: #f1f1f1;
+            display: block;
+        }
+
+        .sidenav a:hover {
+            transform: scale(1.1, 1.1);
+        }
+
+        .main {
+            margin-left: 180px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidenav {
+                padding-top: 15px;
+            }
+
+            .sidenav a {
+                font-size: 18px;
+            }
+        }
+
+        .navbar {
+            border-radius: 0;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidenav">
+    <a href="">
+        <h2 class="text-center">
+            <i class="fa fa-user"></i>
+        </h2>
+        <p>
+            Welcome
+            {{ request.user.username }}
+        </p>
+    </a>
+    <a href="{% url 'choose_template' %}">Choose Template</a>
+    <a href="{% url 'create_product' %}">Create Product</a>
+    <a href="{% url 'rooms' %}">Create Rooms</a>
+    <a href="{% url 'set_payments' %}">Set Payments</a>
+</div>
+
+<div class="main">
+    {% include 'partials/navbar.html' %}
+
+    <div class="container" style="width: 100%">
+        <div class="row">
+            <div class="col-sm-12">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+</html>

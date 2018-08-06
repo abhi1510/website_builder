@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Rooms | Hotelier{% endblock %}
+
+{% block content %}
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+        }
+
+        .container {
+            background-color: #eff3f4;
+        }
+
+        .well {
+            background-color: #ffffff;
+        }
+
+        .text-title {
+            color: #707070;
+        }
+
+        label {
+            color: #5c5c5c;
+        }
+
+        .checkbox label {
+            color: #5c5c5c;
+            font-weight: bold;
+        }
+    </style>
+
+    <h2 class="text-title">
+        {{ room.get_content.name }} Room - {{ room.product.get_content.name }}
+    </h2>
+    <hr style="border: 1px solid #fff">
+
+    <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <h3 class="text-title text-center">Room Properties</h3>
+                    <p class="text-title text-center">
+                        Let's start with the basics first.
+                    </p>
+                </div>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <label><span class="text-info">*</span>Name this room</label>
+                            <input type="text" class="form-control input-sm" name="name"
+                                   value="{{ room.get_content.name }}">
+                        </div>
+                        <div class="col-sm-4">
+                            <label><span class="text-info">*</span>Units</label>
+                            <input type="number" class="form-control input-sm" value="1">
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-sm-3">
+                            <label><span class="text-info">*</span>Max Guests</label>
+                            <input type="number" class="form-control input-sm" value="2">
+                        </div>
+                        <div class="col-sm-3">
+                            <label><span class="text-info">*</span>Max Kids</label>
+                            <input type="number" class="form-control input-sm" value="0">
+                        </div>
+                        <div class="col-sm-3">
+                            <label><span class="text-info">*</span>Room Size</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control input-sm" name="size"
+                                       value="{{ room.get_content.size }}">
+                                <span class="input-group-addon  input-sm">
+                                    ft<sup>2</sup>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <h3 class="text-title text-center">Beds</h3>
+                    <p class="text-title text-center">
+                        What type's of beds are there in this room?
+                    </p>
+                </div>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-sm-5">
+                            <label><span class="text-info">*</span>Bed Types</label>
+                            <select class="form-control input-sm" name="bed_type">
+                                <option value="{{ room.get_content.bed.type }}" selected>
+                                    {{ room.get_content.bed.type | capfirst }}
+                                </option>
+                                <option value="king">King</option>
+                                <option value="queen">Queen</option>
+                                <option value="double">Double</option>
+                                <option value="single">Single</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <label><span class="text-info">*</span>How Many</label>
+                            <input type="number" class="form-control input-sm" value="{{ room.get_content.bed.count }}"
+                                   name="bed_count">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <h3 class="text-title text-center">Amenities</h3>
+                    <p class="text-title text-center">
+                        Tick off all the cool feature that this room has to offer
+                    </p>
+                </div>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <div class="row">
+                        {% for am in amenities %}
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                                        {% if am.value in room.get_content.amenities %}
+                                            <input type="checkbox" name="amenities[]" value="{{ am.value }}"
+                                                   checked>
+                                            {{ am.name }}
+                                        {% else %}
+                                            <input type="checkbox" name="amenities[]" value="{{ am.value }}">
+                                            {{ am.name }}
+                                        {% endif %}
+                                    </label>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <h3 class="text-title text-center">Photos</h3>
+                    <p class="text-title text-center">
+                        Excite your guests with beautiful room photos!
+                    </p>
+                </div>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <img src="{{ room.get_content.image_url }}"
+                                 alt=""
+                                 width="100%" height="300px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <h3 class="text-title text-center">Description</h3>
+                    <p class="text-title text-center">
+                        Describe your room. What makes it special?
+                    </p>
+                </div>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <textarea rows="5" class="form-control"
+                                      name="description">{{ room.get_content.description }}</textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <h3 class="text-title text-center">Price
+                        <small>(before tax)</small>
+                    </h3>
+                    <p class="text-title text-center">
+                        How do you want to charge this room?
+                    </p>
+                </div>
+                <div class="col-sm-offset-1 col-sm-8">
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-sm-4">
+                            <label>Rate type</label>
+                            <select class="form-control input-sm" name="rate_type">
+                                <option value="{{ room.get_content.price.type }}" selected>Charge
+                                    per {{ room.get_content.price.type }}</option>
+                                <option value="room">Charge per room</option>
+                                <option value="person">Charge per person</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label><span class="text-info">*</span>Weekday price</label>
+                            <input type="number" class="form-control input-sm" name="weekday_price"
+                                   value="{{ room.get_content.price.weekday }}">
+                        </div>
+                        <div class="col-sm-4">
+                            <label><span class="text-info">*</span>Weekend price</label>
+                            <input type="number" class="form-control input-sm" name="weekend_price"
+                                   value="{{ room.get_content.price.weekend }}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-warning">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+
+{% endblock %}

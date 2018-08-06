@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/3/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            padding: 10px;
+        }
+
+        .form-control {
+            margin-bottom: 2%;
+        }
+
+        .container {
+            margin-top: 5%;
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">WebSiteName</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="/home">Home</a></li>
+                <li><a href="/rooms">Rooms</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="text-center animated zoomInUp">Casa Hotels</h1>
+            <hr style="width: 10%">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <img src="https://images.unsplash.com/photo-1488901512066-cd403111aeb2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=97b5d9a6f336f7f5d1e15b000aaba20c&auto=format&fit=crop&w=889&q=80"
+                 alt=""
+                 class="animated slideInDown delay-3s"
+                 width="100%">
+        </div>
+    </div>
+
+    <div class="row" style="margin: 3% 0;">
+        <div class="col-sm-12">
+            <form action="">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <label>Check In</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="col-sm-3">
+                        <label>Check In</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="col-sm-1">
+                        <label>Adults</label>
+                        <input type="number" class="form-control" value="1">
+                    </div>
+                    <div class="col-sm-1">
+                        <label>Kids</label>
+                        <input type="number" class="form-control" value="0">
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary btn-block" style="background-color: #000000; margin-top: 7%">
+                            Search
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="about">
+        <br>
+        <br>
+        <div class="row animated bounceIn">
+            <div class="col-sm-12">
+                <h2 class="text-center">About</h2>
+                <p class="text-center" style="margin: 5% 20%">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Autem
+                    blanditiis earum esse expedita harum id ipsa voluptates? Cumque expedita, illo illum ipsam omnis
+                    perspiciatis quod? Aliquid ipsam maxime quibusdam voluptatem?</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact">
+        <br><br>
+        <div class="row animated bounceIn">
+            <div class="col-sm-12">
+                <h2 class="text-center">Contact Us</h2>
+                <p class="text-center" style="margin: 5%">Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Autem
+                    blanditiis earum esse expedita harum id ipsa voluptates? Cumque expedita, illo illum ipsam omnis
+                    perspiciatis quod? Aliquid ipsam maxime quibusdam voluptatem?</p>
+                <div class="row">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-8">
+                        <form action="">
+                            <div class="form-group">
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="*Name">
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control" placeholder="*Email">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <input type="text" class="form-control" placeholder="*Subject">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <textarea rows="4" class="form-control" placeholder="*Message"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <button class="btn btn-primary btn-block" style="background-color: #000000">Send
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br><br>
+    <hr>
+    <p class="text-center">&COPY; 2018 Abhinav</p>
+    <br><br>
+
+</div>
+
+</body>
+</html>

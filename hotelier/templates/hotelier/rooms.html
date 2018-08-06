@@ -1,0 +1,312 @@
+{% extends 'base.html' %}
+
+{% block title %}Rooms | Hotelier{% endblock %}
+
+{% block content %}
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+        }
+
+        .container {
+            background-color: #eff3f4;
+        }
+
+        .well {
+            background-color: #ffffff;
+        }
+
+        .text-title {
+            color: #707070;
+        }
+
+        label {
+            color: #5c5c5c;
+        }
+
+        .checkbox label {
+            color: #5c5c5c;
+            font-weight: bold;
+        }
+    </style>
+
+    <h2 class="text-title">
+        Rooms Details
+
+        <button class="btn btn-success pull-right" onclick="showCreateForm()">
+            <i class="fa fa-plus"></i> Add Room
+        </button>
+
+
+    </h2>
+    <hr style="border: 1px solid #fff">
+
+    {% for room in rooms %}
+        <div class="well col-sm-12">
+            <div class="col-sm-3">
+                <img src="{{ room.image.url }}"
+                     alt=""
+                     class="img-thumbnail" width="100%">
+            </div>
+            <div class="col-sm-3">
+                <div style="font-size: 1.5em; font-weight: 600; color: #707070">{{ room.get_content.name }}</div>
+                <p>{{ room.get_content.description }}</p>
+                <ul>
+                    <li>Size: {{ room.get_content.size }}</li>
+                    <li>Beds: {{ room.get_content.bed.count }} {{ room.get_content.bed.type | capfirst }}(s)</li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <a href="{% url 'room_detail' room.id %}" class="btn btn-info btn-xs pull-right">Update</a>
+                <h4>Amenities</h4>
+                {{ room.get_content.amenities }}
+            </div>
+        </div>
+    {% endfor %}
+
+
+    <h3 style="font-size: 0.1em">.</h3>
+    <div style="display: none" id="createForm">
+        <form action="" class="form-horizontal" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <h3 class="text-title text-center">Room Properties</h3>
+                        <p class="text-title text-center">
+                            Let's start with the basics first.
+                        </p>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <label><span class="text-info">*</span>Name this room</label>
+                                {% if data %}
+                                    <input type="text" class="form-control input-sm" name="name"
+                                           value="{{ data.name }}">
+                                {% else %}
+                                    <input type="text" class="form-control input-sm" name="name">
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-4">
+                                <label><span class="text-info">*</span>Units</label>
+                                <input type="number" class="form-control input-sm" value="1">
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px">
+                            <div class="col-sm-3">
+                                <label><span class="text-info">*</span>Max Guests</label>
+                                <input type="number" class="form-control input-sm" value="2">
+                            </div>
+                            <div class="col-sm-3">
+                                <label><span class="text-info">*</span>Max Kids</label>
+                                <input type="number" class="form-control input-sm" value="0">
+                            </div>
+                            <div class="col-sm-3">
+                                <label><span class="text-info">*</span>Room Size</label>
+                                <div class="input-group">
+                                    {% if data %}
+                                        <input type="number" class="form-control input-sm" name="size"
+                                               value="{{ data.size }}">
+                                    {% else %}
+                                        <input type="number" class="form-control input-sm" name="size">
+                                    {% endif %}
+
+                                    <span class="input-group-addon  input-sm">
+                                    ft<sup>2</sup>
+                                </span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <h3 class="text-title text-center">Beds</h3>
+                        <p class="text-title text-center">
+                            What type's of beds are there in this room?
+                        </p>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-8">
+                        <div class="row" style="margin-top: 15px">
+                            <div class="col-sm-5">
+                                <label><span class="text-info">*</span>Bed Types</label>
+                                <select class="form-control input-sm" name="bed_type">
+                                    {% if data.bed %}
+                                        <option value="{{ data.bed.type }}" selected disabled>
+                                            {{ data.bed.type | capfirst }}
+                                        </option>
+                                    {% endif %}
+                                    <option value="king">King</option>
+                                    <option value="queen">Queen</option>
+                                    <option value="double">Double</option>
+                                    <option value="single">Single</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label><span class="text-info">*</span>How Many</label>
+                                {% if data.bed %}
+                                    <input type="number" class="form-control input-sm" value="{{ data.bed.count }}"
+                                           name="bed_count">
+                                {% else %}
+                                    <input type="number" class="form-control input-sm" value="1" name="bed_count">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <h3 class="text-title text-center">Amenities</h3>
+                        <p class="text-title text-center">
+                            Tick off all the cool feature that this room has to offer
+                        </p>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-8">
+                        <div class="row">
+                            {% for am in amenities %}
+                                <div class="col-sm-4">
+                                    <div class="checkbox">
+                                        <label>
+                                            {% if am.value in data.amenities %}
+                                                <input type="checkbox" name="amenities[]" value="{{ am.value }}"
+                                                       checked>
+                                                {{ am.name }}
+                                            {% else %}
+                                                <input type="checkbox" name="amenities[]" value="{{ am.value }}">
+                                                {{ am.name }}
+                                            {% endif %}
+                                        </label>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <h3 class="text-title text-center">Photos</h3>
+                        <p class="text-title text-center">
+                            Excite your guests with beautiful room photos!
+                        </p>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {% if data %}
+                                    <img src="{{ data.image_url }}"
+                                         alt=""
+                                         width="100%" height="300px">
+                                {% else %}
+                                    <div style="border: 1px dashed #61c8e1; background-color: #fdfdfd; color: #61c8e1; padding: 1.2em"
+                                         class="text-center">
+                                        <input type="file" name="photo" class="form-control"><br>
+                                        <i class="fa fa-camera" style="font-size: 3em"></i><br>
+                                        <i class="fa fa-plus"></i> Add Photo
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <h3 class="text-title text-center">Description</h3>
+                        <p class="text-title text-center">
+                            Describe your room. What makes it special?
+                        </p>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-8">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {% if data %}
+                                    <textarea rows="5" class="form-control"
+                                              name="description">{{ data.description }}</textarea>
+                                {% else %}
+                                    <textarea rows="5" class="form-control" name="description"></textarea>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="well">
+                <div class="form-group">
+                    <div class="col-sm-3">
+                        <h3 class="text-title text-center">Price
+                            <small>(before tax)</small>
+                        </h3>
+                        <p class="text-title text-center">
+                            How do you want to charge this room?
+                        </p>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-8">
+                        <div class="row" style="margin-top: 15px">
+                            <div class="col-sm-4">
+                                <label>Rate type</label>
+                                <select class="form-control input-sm" name="rate_type">
+                                    {% if data %}
+                                        <option value="{{ data.price.type }}" selected disabled>Charge
+                                            per {{ data.price.type }}</option>
+                                    {% endif %}
+                                    <option value="room">Charge per room</option>
+                                    <option value="person">Charge per person</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label><span class="text-info">*</span>Weekday price</label>
+                                {% if data %}
+                                    <input type="number" class="form-control input-sm" name="weekday_price"
+                                           value="{{ data.price.weekday }}">
+                                {% else %}
+                                    <input type="number" class="form-control input-sm" name="weekday_price">
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-4">
+                                <label><span class="text-info">*</span>Weekend price</label>
+                                {% if data %}
+                                    <input type="number" class="form-control input-sm" name="weekend_price"
+                                           value="{{ data.price.weekend }}">
+                                {% else %}
+                                    <input type="number" class="form-control input-sm" name="weekend_price">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <div class="pull-right">
+                        <button type="submit" class="btn btn-warning">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <script>
+    function showCreateForm() {
+        document.querySelector('#createForm').style.display = 'block';
+    }
+    </script>
+
+{% endblock %}

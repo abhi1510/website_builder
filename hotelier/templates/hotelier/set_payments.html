@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Payments | Hotelier{% endblock %}
+
+{% block content %}
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+        }
+
+        .container {
+            background-color: #eff3f4;
+        }
+
+        .well {
+            background-color: #ffffff;
+        }
+
+        .text-title {
+            color: #707070;
+        }
+
+        label {
+            color: #5c5c5c;
+        }
+
+        .checkbox label {
+            color: #5c5c5c;
+            font-weight: bold;
+        }
+    </style>
+
+    <h2 class="text-title">
+        Payments
+        {% if all_rooms %}
+            <button class="btn btn-success pull-right" data-toggle="modal" data-target="#createRoom">
+                <i class="fa fa-plus"></i> Add Room
+            </button>
+        {% endif %}
+    </h2>
+    <hr style="border: 1px solid #fff">
+
+
+
+
+    <form action="" class="form-horizontal">
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-4 text-center">
+                    <img src="http://pngimg.com/uploads/paypal/paypal_PNG22.png"
+                         alt=""
+                        width="35%"
+                        height="80px">
+                </div>
+                <div class="col-sm-5">
+                    <ul>
+                        <li>Accept PayPal and Credit Cards online</li>
+                        <li>A world trusted brand</li>
+                        <li>Quickly sign up and connect</li>
+                        <li>From 2.9% + 30 cents per transaction</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <button class="btn btn-info" style="margin-top: 10%">Connect</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-4 text-center">
+                    <h3 class="text-title text-center">Offline Payments</h3>
+                </div>
+                <div class="col-sm-5">
+                    <ul>
+                        <li>Guests can book without entering payment details</li>
+                        <li>You arrange payment with your guests</li>
+                        <li>Valid in all countries</li>
+                        <li>No commissions</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 text-center">
+                    <button class="btn btn-info" style="margin-top: 10%">Connect</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="well">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    <h3 class="text-title text-center">Price Settings</h3>
+                </div>
+                <div class="col-sm-8">
+                    <div class="row" style="margin-top: 15px">
+                        <div class="col-sm-4">
+                            <label>Currency</label>
+                            <select class="form-control input-sm">
+                                <option value="">Indian Rupee</option>
+                                <option value="">Australian Dollar</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <label><span class="text-info">*</span>Tax</label>
+                            <div class="input-group">
+                                <input class="form-control input-sm">
+                                <span class="input-group-addon input-sm">%</span>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <label><span class="text-info">*</span>Deposit</label>
+                            <select class="form-control input-sm">
+                                <option value="">Total Charge</option>
+                                <option value="">1 Night</option>
+                                <option value="">25% of Total Charge</option>
+                                <option value="">50% of Total Charge</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-12">
+                <div class="pull-right">
+                    <button type="submit" class="btn btn-warning">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+{% endblock %}

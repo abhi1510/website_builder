@@ -1,0 +1,388 @@
+{% extends 'base.html' %}
+
+{% block title %}Product | Hotelier{% endblock %}
+
+{% block content %}
+
+    <style>
+        .navbar {
+            margin-bottom: 0;
+        }
+
+        .container {
+            background-color: #eff3f4;
+        }
+
+        .well {
+            background-color: #ffffff;
+        }
+
+        .text-title {
+            color: #707070;
+        }
+
+        label {
+            color: #5c5c5c;
+        }
+    </style>
+
+    {% if error %}
+        <h5 class="alert alert-danger">
+            Error while creating Product: <br>
+            {{ error | capfirst }}
+        </h5>
+    {% endif %}
+    {% if res %}
+        <h5 class="alert alert-success">{{ res }}</h5>
+    {% endif %}
+
+    <h2 class="text-title">
+        General Settings
+
+        <button class="btn btn-success pull-right" data-toggle="modal" data-target="#createImage">
+            <i class="fa fa-plus"></i> Add Images
+        </button>
+
+    </h2>
+
+    <div id="createImage" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Upload Photo</h4>
+                </div>
+                <div class="modal-body">
+
+                    {#                    <form action="{% url 'create_property_image' %}"#}
+                    {#                          method="post"#}
+                    {#                          class="form-horizontal"#}
+                    {#                          enctype="multipart/form-data">#}
+                    {#                        {% csrf_token %}#}
+                    {#                        <div class="form-group">#}
+                    {#                            <label class="control-label col-sm-2">{{ image_form.product.label_tag }}</label>#}
+                    {#                            <div class="col-sm-10">#}
+                    {#                                {{ image_form.product }}#}
+                    {#                                {{ image_form.product.errors }}#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                        <div class="form-group">#}
+                    {#                            <label class="control-label col-sm-2">{{ image_form.image.label_tag }}</label>#}
+                    {#                            <div class="col-sm-10">#}
+                    {#                                {{ image_form.image }}#}
+                    {#                                {{ image_form.image.errors }}#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                        <div class="form-group">#}
+                    {#                            <div class="col-sm-offset-2 col-sm-10">#}
+                    {#                                <button type="submit" class="btn btn-success">Upload</button>#}
+                    {#                            </div>#}
+                    {#                        </div>#}
+                    {#                    </form>#}
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <hr style="border: 1px solid #fff">
+
+    <div class="row">
+        <div class="col-sm-12">
+            {% if products %}
+                {% for product in products %}
+                    <div class="well col-sm-12">
+                        <h4>Name: {{ product.name }} </h4>
+                        <h5>Description: {{ product.description }}</h5>
+                        <br>
+                        <h4>Images</h4>
+                        <hr style="border: 1px solid #ffffff">
+                        {% if product.get_images %}
+                            {% for photo in  product.get_images %}
+                                <div class="col-sm-3">
+                                    <div class="panel panel-info">
+                                        <div class="panel-heading">
+                                            {{ photo.name }}
+                                            <i class="fa fa-trash pull-right"></i>
+                                        </div>
+                                        <div class="panel-content">
+                                            <img src="{{ photo.image.url }}"
+                                                 alt=""
+                                                 class="img-thumbnail"
+                                                 style="border-radius: 0;">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <h4 class="text-center">
+                                No Photos added yet <br> <br>
+                                <button class="btn btn-success btn-sm" data-toggle="modal"
+                                        data-target="#createImage">
+                                    <i class="fa fa-plus"></i> Add Images
+                                </button>
+                            </h4>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                <form action="" method="post" class="form-horizontal">
+                    {% csrf_token %}
+                    <div class="well">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h3 class="text-title text-center">Bussiness Info</h3>
+                                <p class="text-title text-center">Your contact info will appear in guest's booking
+                                    conformation email.</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label><span class="text-info">*</span>Property Name</label>
+
+                                        {% if data.name %}
+                                            <input type="text" class="form-control input-sm" name="name"
+                                                   value="{{ data.name }}">
+                                        {% else %}
+                                            <input type="text" class="form-control input-sm" name="name">
+                                        {% endif %}
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Property Type</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">Hotel</option>
+                                            <option value="">Apartment</option>
+                                            <option value="">Resort</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-sm-6">
+                                        <label><span class="text-info">*</span>Email Address</label>
+                                        {% if data.name %}
+                                            <input type="email" class="form-control input-sm" name="email"
+                                                   value="{{ data.email }}">
+                                        {% else %}
+                                            <input type="email" class="form-control input-sm" name="email">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><span class="text-info">*</span>Phone</label>
+                                        {% if data.name %}
+                                            <input type="number" class="form-control input-sm" name="phone"
+                                                   value="{{ data.phone }}">
+                                        {% else %}
+                                            <input type="number" class="form-control input-sm" name="phone">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h3 class="text-title text-center">Address</h3>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <label for=""><span class="text-info">*</span>City</label>
+                                        {% if data %}
+                                            <input type="text" class="form-control input-sm" name="city"
+                                                   value="{{ data.address.city }}">
+                                        {% else %}
+                                            <input type="text" class="form-control input-sm" name="city">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for=""><span class="text-info">*</span>State</label>
+                                        {% if data %}
+                                            <input type="text" class="form-control input-sm" name="state"
+                                                   value="{{ data.address.state }}">
+                                        {% else %}
+                                            <input type="text" class="form-control input-sm" name="state">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label for=""><span class="text-info">*</span>Country</label>
+                                        {% if data %}
+                                            <input type="text" class="form-control input-sm" name="country"
+                                                   value="{{ data.address.country }}">
+                                        {% else %}
+                                            <input type="text" class="form-control input-sm" name="country">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-sm-6">
+                                        <label for=""><span class="text-info">*</span>Street Address</label>
+                                        {% if data %}
+                                            <input type="text" class="form-control input-sm" name="street"
+                                                   value="{{ data.address.street }}">
+                                        {% else %}
+                                            <input type="text" class="form-control input-sm" name="street">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label for="">Zip Code / Postal Code</label>
+                                        {% if data %}
+                                            <input type="text" class="form-control input-sm" name="zipcode"
+                                                   value="{{ data.address.zipcode }}">
+                                        {% else %}
+                                            <input type="text" class="form-control input-sm" name="zipcode">
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-sm-12">
+                                        <img src="https://developers.google.com/maps/solutions/images/storelocator_clothing.png"
+                                             alt=""
+                                             width="100%">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="well">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h3 class="text-title text-center">Contact Description</h3>
+                                <p class="text-title text-center">What will come in contact description</p>
+                            </div>
+                            <div class="col-sm-9">
+                                {% if data %}
+                                    <textarea rows="4" class="form-control" name="contact_desc">{{ data.contact_desc }}</textarea>
+                                {% else %}
+                                    <textarea rows="4" class="form-control" name="contact_desc"
+                                              placeholder="Describe what will come in contact page here"></textarea>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h3 class="text-title text-center">About</h3>
+                                <p class="text-title text-center">What will come in about page</p>
+                            </div>
+                            <div class="col-sm-9">
+                                {% if data %}
+                                    <textarea rows="4" class="form-control" name="about">{{ data.about }}</textarea>
+                                {% else %}
+                                    <textarea rows="4" class="form-control" name="about"
+                                          placeholder="Describe what will come in about page here"></textarea>
+                                {% endif %}
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="well">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h3 class="text-title text-center">Regional Settings</h3>
+                                <p class="text-title text-center">Choose the settings relevant to your region.</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <label><span class="text-info">*</span>Timezone</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">(GMT+5:30) Asia/Kolkata</option>
+                                            <option value="">(GMT+5:30) Asia/Kabul</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label>Measurement Units</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">Square Feet</option>
+                                            <option value="">Square Meter</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top: 10px">
+                                    <div class="col-sm-6">
+                                        <label>Your Weekend Nights Are:</label> <br>
+                                        <label class="checkbox-inline"><input type="checkbox" value="">Thu</label>
+                                        <label class="checkbox-inline"><input type="checkbox" value="">Fri</label>
+                                        <label class="checkbox-inline"><input type="checkbox" value=""
+                                                                              checked>Sat</label>
+                                        <label class="checkbox-inline"><input type="checkbox" value=""
+                                                                              checked>Sun</label>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label><span class="text-info">*</span>Primary Language</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">English</option>
+                                            <option value="">Spanish</option>
+                                            <option value="">French</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="well">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <h3 class="text-title text-center">Length Of Stay</h3>
+                                <p class="text-title text-center">What are your stay requirements?</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <label>Check-In Time</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">12:00 PM</option>
+                                            <option value="">11:00 PM</option>
+                                            <option value="">10:00 PM</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Check-Out Time</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">02:00 PM</option>
+                                            <option value="">03:00 PM</option>
+                                            <option value="">04:00 PM</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Min Nights</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">1</option>
+                                            <option value="">2</option>
+                                            <option value="">3</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <label>Max Nights</label>
+                                        <select class="form-control input-sm">
+                                            <option value="">365</option>
+                                            <option value="">364</option>
+                                            <option value="">363</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="pull-right">
+                                <button type="submit" class="btn btn-warning">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/3/yeti/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        .navbar {
+            padding: 10px;
+        }
+
+        .form-control {
+            margin-bottom: 2%;
+        }
+
+        .container {
+            margin-top: 5%;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home">WebSiteName</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav">
+                <li><a href="/home">Home</a></li>
+                <li class="active"><a href="/rooms">Rooms</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="/home#about">About</a></li>
+                <li><a href="/home#contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <p style="margin-bottom: 5%"></p>
+            <h2>Our Rooms</h2>
+            <hr>
+            <div class="row">
+                <div class="col-sm-12">
+                    <form action="">
+                        <div class="form-group">
+                            <div class="col-sm-3">
+                                <label>Check In</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-sm-3">
+                                <label>Check In</label>
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-sm-1">
+                                <label>Adults</label>
+                                <input type="number" class="form-control" value="1">
+                            </div>
+                            <div class="col-sm-1">
+                                <label>Kids</label>
+                                <input type="number" class="form-control" value="0">
+                            </div>
+                            <div class="col-sm-4">
+                                <button class="btn btn-primary btn-block"
+                                        style="background-color: #000000; margin-top: 7%">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <img src="https://static.wixstatic.com/media/1459a5b61b86349d0b30e53b2ed15e3d.jpg/v1/fill/w_240,h_170,q_85,usm_0.66_1.00_0.01/1459a5b61b86349d0b30e53b2ed15e3d.jpg"
+                         alt=""
+                         width="100%">
+                </div>
+                <div class="col-sm-6">
+                    <h3 class="animated slideInRight" style="font-weight: 500">Garden View Suite</h3>
+                    <p>Separate from the main house, offering you maximum privacy during your stay</p>
+                    <ul>
+                        <li>Size: 230 sq ft</li>
+                        <li>Beds: 1 Queen(s)</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <p class="text-center">From</p>
+                    <p class="text-center" style="font-size: 2.5em; font-weight: 300">$100</p>
+                    <p class="text-center">
+                        <button class="btn btn-primary" style="width: 60%; background-color: #000">Book</button>
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <img src="https://static.wixstatic.com/media/51c3481fa5844bc59e5544039e53203a.jpg/v1/fill/w_240,h_170,q_85,usm_0.66_1.00_0.01/51c3481fa5844bc59e5544039e53203a.jpg"
+                         alt=""
+                         width="100%">
+                </div>
+                <div class="col-sm-6">
+                    <h3 class="animated slideInRight" style="font-weight: 500">Lake View Suite</h3>
+                    <p>Separate from the main house, offering you maximum privacy during your stay</p>
+                    <ul>
+                        <li>Size: 260 sq ft</li>
+                        <li>Beds: 1 King(s)</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <p class="text-center">From</p>
+                    <p class="text-center" style="font-size: 2.5em; font-weight: 300">$150</p>
+                    <p class="text-center">
+                        <button class="btn btn-primary" style="width: 60%; background-color: #000">Book</button>
+                    </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <img src="https://static.wixstatic.com/media/84770f_3985c0f84ccc4b77ba68a0f2ef254527~mv2_d_2500_1658_s_2.jpg/v1/fill/w_240,h_170,q_85,usm_0.66_1.00_0.01/84770f_3985c0f84ccc4b77ba68a0f2ef254527~mv2_d_2500_1658_s_2.jpg"
+                         alt=""
+                         width="100%">
+                </div>
+                <div class="col-sm-6">
+                    <h3 class="animated slideInRight" style="font-weight: 500">Pool View Suite</h3>
+                    <p>Separate from the main house, offering you maximum privacy during your stay</p>
+                    <ul>
+                        <li>Size: 300 sq ft</li>
+                        <li>Beds: 2 Queen(s)</li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <p class="text-center">From</p>
+                    <p class="text-center" style="font-size: 2.5em; font-weight: 300">$180</p>
+                    <p class="text-center">
+                        <button class="btn btn-primary" style="width: 60%; background-color: #000">Book</button>
+                    </p>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </div>
+
+    <br><br><br>
+
+</div>
+
+</body>
+</html>
